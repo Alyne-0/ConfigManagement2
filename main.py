@@ -43,14 +43,12 @@ def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
         description="Dependency graph tool (Stages 1–5)"
     )
-    # Настраиваемые параметры:
     p.add_argument("--package", help="имя анализируемого пакета (crate) для режима crates.io")
     p.add_argument("--repo", default="", help="URL (crates.io режим) ИЛИ путь к тестовому репозиторию (файл)")
     p.add_argument("--test-mode", action="store_true", help="режим тестового репозитория (локальный файл)")
     p.add_argument("--output", default="ascii-tree", choices=["ascii-tree", "dot"],
                    help="формат вывода зависимостей")
     p.add_argument("--filter", default="", help="подстрока, пакеты с которой в имени нужно игнорировать")
-    # Доп. флаги для соответствия этапам:
     p.add_argument("--conf-dump", action="store_true",
                    help="(Этап 1) вывести параметры ключ=значение и выйти")
     p.add_argument("--reverse", action="store_true",
@@ -67,7 +65,7 @@ def validate_stage1(ns: argparse.Namespace) -> Dict[str, str]:
         if not os.path.exists(ns.repo):
             fail(f"test repository file does not exist: {ns.repo}")
     else:
-        # crates.io режим
+        # crates.io 
         if not ns.package:
             fail("--package is required in crates.io mode")
         if not PKG_RE.match(ns.package):
@@ -160,7 +158,7 @@ def build_graph_cratesio(root: str, flt: str) -> Graph:
     dfs(root)
     return graph
 
-# --- тестовый репозиторий (локальный файл с графом БОЛЬШИМИ ЛАТИНСКИМИ БУКВАМИ) ---
+# --- тестовый репозиторий ---
 
 def load_test_graph(path: str) -> Graph:
     """
@@ -249,7 +247,6 @@ def print_ascii_tree(g: Graph, root: str) -> None:
             else:
                 rec(v, new_pref, i == len(children) - 1)
 
-    # Если корень отсутствует в g (напр. фильтр все вырезал) — всё равно печатаем вершину
     if root not in g:
         print(root)
         return
