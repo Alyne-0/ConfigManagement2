@@ -1,0 +1,10 @@
+digraph deps {
+  rankdir=LR; node [shape=box, fontsize=10];
+  "A" -> "B";
+  "A" -> "C";
+  "C" -> "D";
+  "B" -> "C";
+  "B" -> "D";
+}
+
+

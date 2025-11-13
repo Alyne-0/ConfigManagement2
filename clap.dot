@@ -1,0 +1,6 @@
+digraph deps {
+  rankdir=LR; node [shape=box, fontsize=10];
+  "clap" -> "clap_builder";
+  "clap_builder" -> "clap_lex";
+  "clap_builder" -> "anstyle";
+}

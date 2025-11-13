@@ -1,0 +1,14 @@
+digraph deps {
+  rankdir=LR; node [shape=box, fontsize=10];
+  "serde" -> "serde_core";
+  "serde" -> "serde_derive";
+  "serde_core" -> "serde_derive";
+  "serde_derive" -> "syn";
+  "serde_derive" -> "proc-macro2";
+  "serde_derive" -> "quote";
+  "proc-macro2" -> "unicode-ident";
+  "quote" -> "proc-macro2";
+  "syn" -> "proc-macro2";
+  "syn" -> "quote";
+  "syn" -> "unicode-ident";
+}
